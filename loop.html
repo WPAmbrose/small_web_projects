@@ -9,7 +9,10 @@
 function loop_up()
 {
 	var pmain = document.getElementsByTagName("P").item(0);		// get the first p element
-	pmain.firstChild.data = "I'm different now";				// change the first child of the element: the text
+	for (var i = 0; ;i++)
+	{
+		pmain.firstChild.data = "I'm different now";			// change the first child of the element: the text
+	}
 }
 </script>
 </head>
