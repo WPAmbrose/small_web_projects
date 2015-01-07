@@ -8,17 +8,19 @@
 <script type="text/javascript">
 function loop_up()
 {
-	// function body goes here
+	var pmain = document.getElementsByTagName("P").item(0);		// get the first p element
+	pmain.firstChild.data = "I'm different now";				// change the first child of the element: the text
 }
 </script>
 </head>
 
 <body>
 
-<br>
 <p>Ready</p>
-<br>
 <input type = "button" value = "Start" onclick = "loop_up()">
+<br>
+<br>
+<a href="/web_shenanigans/index.html">Back to the index</a>
 
 </body>
 </html>
