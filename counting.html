@@ -6,12 +6,16 @@
 <meta charset="utf-8">
 
 <script type="text/javascript">
+
+i = 0;
+
 function loop_up()
 {
 	var pmain = document.getElementsByTagName("P").item(0);		// get the first p element
-	var i = i + 1;
+	i = i + 1;
 	pmain.firstChild.data = i;									// change the first child of the element: the text
 }
+
 </script>
 </head>
 
