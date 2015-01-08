@@ -9,7 +9,7 @@
 
 <body>
 
-<p>Count appears below</p>
+<p>Ready</p>
 <!--
 <input type = "button" value = "Start" onclick = "recount()">
 <br>
@@ -21,16 +21,32 @@
 
 var inc = 0;
 
-var p_first = document.getElementsByTagName("P")[0];			// get the first p element
-var p_text = document.createTextNode("Ready");					// create a new text node
-var p_second = document.createElement("P");						// create new p element
-
-p_second.appendChild(p_text);						// put the text node in the second p element
-p_first.parentNode.appendChild(p_second);			// put the second p element in the body, after the first one
+var p_first = document.getElementsByTagName("P").item(0);		// get the first p element
 
 function count()
 {
-	p_text = inc;
+	var pout = "";
+	
+	if (inc % 3 = 0)
+	{
+		pout = "fizz <br>";
+	}
+	
+	if (inc % 5 = 0)
+	{
+		pout = pout + "buzz <br>";
+	}
+	
+	if (inc % 7 = 0)
+	{
+		pout = pout + "blargh <br>";
+	}
+	
+	pout = pout + inc;
+		
+	// work with the first child node of the first p element, its text
+	p_first.firstChild.data = inc;
+	
 	inc = inc + 1;
 }
 
