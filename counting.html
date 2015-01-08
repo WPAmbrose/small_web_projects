@@ -7,7 +7,7 @@
 
 <script type="text/javascript">
 
-i = 0;
+var i = 0;
 
 function count()
 {
@@ -16,13 +16,21 @@ function count()
 	pmain.firstChild.data = i;									// change the first child of the element: the text
 }
 
+function recount()
+{
+	for (var i=0;i<=50000;i++)
+	{
+		setTimeout(count, 3000);
+	}
+}
+
 </script>
 </head>
 
 <body>
 
 <p>Ready</p>
-<input type = "button" value = "Start" onclick = "count()">
+<input type = "button" value = "Start" onclick = "recount()">
 <br>
 <br>
 <a href="/web_shenanigans/index.html">Back to the index</a>
