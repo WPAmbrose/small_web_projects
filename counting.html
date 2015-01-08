@@ -5,31 +5,38 @@
 <title>Numeric testing</title>
 <meta charset="utf-8">
 
-<script type="text/javascript">
-
-var i = 0;
-
-function count()
-{
-	var pmain = document.getElementsByTagName("P").item(0);		// get the first p element
-	i = i + 1;
-	pmain.firstChild.data = i;									// change the first child of the element: the text
-}
-
-setInterval(count, 1600);
-
-</script>
 </head>
 
 <body>
 
-<p>Ready</p>
+<p>Count appears below</p>
 <!--
 <input type = "button" value = "Start" onclick = "recount()">
 <br>
 -->
 <br>
 <a href="/web_shenanigans/index.html">Back to the index</a>
+
+<script type="text/javascript">
+
+var inc = 0;
+
+var p_first = document.getElementsByTagName("P")[0];			// get the first p element
+var p_text = document.createTextNode("Ready");					// create a new text node
+var p_second = document.createElement("P");						// create new p element
+
+p_second.appendChild(p_text);						// put the text node in the second p element
+p_first.parentNode.appendChild(p_second);			// put the second p element in the body, after the first one
+
+function count()
+{
+	p_text = inc;
+	inc = inc + 1;
+}
+
+setInterval(count, 1600);
+
+</script>
 
 </body>
 </html>
