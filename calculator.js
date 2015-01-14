@@ -25,12 +25,12 @@ function clear_total()
 function number_pressed(incoming)
 {
 	// respond to number buttons
-	out.innerHTML = "hey, " + incoming + " was pressed";
 	
-	if (past_decimal = 0)
+	// out.innerHTML = "hey, " + incoming + " was pressed";
+	if (past_decimal == 0)
 	{
 		// this adjusts the current number to account for ordinary numeric input
-		current = current * 10 + incoming;
+		current = current * 10 + Number(incoming);
 	}
 	else
 	{
@@ -38,11 +38,10 @@ function number_pressed(incoming)
 		// past_decimal (effectively) keeps track of how many times a number has been added after the decimal
 		// raising 1/10 to the power of the position past the decimal produces 0.1, 0.01, 0.001, etc.,
 		// allowing for easy scaling
-		current = current + (((1 / 10) ^ past_decimal) * incoming);
+		current = current + (((1 / 10) ^ past_decimal) * Number(incoming));
 		past_decimal++;
 	}
 	update_display();
-
 }
 
 function decimal_pressed()
