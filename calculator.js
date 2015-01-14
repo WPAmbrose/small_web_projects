@@ -38,7 +38,7 @@ function number_pressed(incoming)
 		// past_decimal (effectively) keeps track of how many times a number has been added after the decimal
 		// raising 1/10 to the power of the position past the decimal produces 0.1, 0.01, 0.001, etc.,
 		// allowing for easy scaling
-		current = current + (((1 / 10) ^ past_decimal) * Number(incoming));
+		current = current + (Math.pow((1 / 10), past_decimal) * Number(incoming));
 		past_decimal++;
 	}
 	update_display();
