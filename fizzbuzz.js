@@ -1,7 +1,10 @@
-var inc = 0;
-
 // get the first p element
 var p_first = document.getElementsByTagName("P").item(0);
+
+// the main counter
+var inc = 0;
+
+var interval_id = null;
 
 function count()
 {
@@ -30,4 +33,16 @@ function count()
 	p_first.firstChild.data = pout;
 }
 
-setInterval(count, 1400);
+function begin()
+{
+	if (interval_id === null)
+	{
+		interval_id = setInterval(count, 1400);
+	}
+	else
+	{
+		// there's an interval set, clear it
+		clearInterval(interval_id);
+		interval_id = null;
+	}
+}
