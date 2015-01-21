@@ -8,12 +8,22 @@ var calc_status = document.getElementById("status");
 
 calc_status.innerHTML = "Click to enter numbers and operators";
 out.innerHTML = "0";
-/* 
-var seven_button = document.getElementById("seven");
-seven_button.addEventListener("click",
-	function (event) { calc_status.innerHTML = "seven was clicked"; },
+
+var main_body = document.getElementsByTagName("body").item(0);
+main_body.addEventListener("click",
+	function (evt)
+	{
+		console.log(evt.target.value);
+	},
 	false);
- */
+
+/*
+document.onmousedown = function(evt)
+{
+	console.log(evt.target.value);
+};
+*/
+
 function update_output(out_number)
 {
 	// update the currently displayed number
