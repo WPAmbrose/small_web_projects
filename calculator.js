@@ -9,20 +9,13 @@ var calc_status = document.getElementById("status");
 calc_status.innerHTML = "Click to enter numbers and operators";
 out.innerHTML = "0";
 
-var main_body = document.getElementsByTagName("body").item(0);
-main_body.addEventListener("click",
+var buttons = document.getElementById("buttons");
+buttons.addEventListener("click",
 	function (evt)
 	{
 		console.log(evt.target.value);
 	},
 	false);
-
-/*
-document.onmousedown = function(evt)
-{
-	console.log(evt.target.value);
-};
-*/
 
 function update_output(out_number)
 {

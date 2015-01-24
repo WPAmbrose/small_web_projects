@@ -11,41 +11,39 @@
 <body>
 
 <p id = "status"></p>
-<p id = "out" style = "border = 1px; border-color: black"></p>
 
-<p>
-<input type = "button" value = "C" style = "width: 20pt" onclick = "clear_total()">
-<input type = "button" value = "/" style = "width: 20pt" onclick = "division()">
-<input type = "button" value = "*" style = "width: 20pt" onclick = "multiplication()">
-<input type = "button" value = "-" style = "width: 20pt" onclick = "subtraction()">
-</p>
+<p id = "out"</p>
 
-<p>
-<input type = "button" value = "7" style = "width: 20pt" onclick = "number_pressed(7)">
-<input type = "button" value = "8" style = "width: 20pt" onclick = "number_pressed(8)">
-<input type = "button" value = "9" style = "width: 20pt" onclick = "number_pressed(9)">
-</p>
+<table id = "buttons">
+	<tr>
+		<td><input type = "button" value = "C" style = "width: 20pt" onclick = "clear_total()"></td>
+		<td><input type = "button" value = "/" style = "width: 20pt" onclick = "division()"></td>
+		<td><input type = "button" value = "*" style = "width: 20pt" onclick = "multiplication()"></td>
+		<td><input type = "button" value = "-" style = "width: 20pt" onclick = "subtraction()"></td>
+	</tr>
+	<tr>
+		<td><input type = "button" value = "7" style = "width: 20pt" onclick = "number_pressed(7)"></td>
+		<td><input type = "button" value = "8" style = "width: 20pt" onclick = "number_pressed(8)"></td>
+		<td><input type = "button" value = "9" style = "width: 20pt" onclick = "number_pressed(9)"></td>
+		<td rowspan = "2"><input type = "button" value = "+" style = "width: 20pt; height: 40pt" onclick = "addition()"></td>
+	<tr>
+		<td><input type = "button" value = "4" style = "width: 20pt" onclick = "number_pressed(4)"></td>
+		<td><input type = "button" value = "5" style = "width: 20pt" onclick = "number_pressed(5)"></td>
+		<td><input type = "button" value = "6" style = "width: 20pt" onclick = "number_pressed(6)"></td>
+	</tr>
+	<tr>
+		<td><input type = "button" value = "1" style = "width: 20pt" onclick = "number_pressed(1)"></td>
+		<td><input type = "button" value = "2" style = "width: 20pt" onclick = "number_pressed(2)"></td>
+		<td><input type = "button" value = "3" style = "width: 20pt" onclick = "number_pressed(3)"></td>
+		<td rowspan = "2"><input type = "button" value = "=" style = "width: 20pt; height: 40pt" onclick = "calculate()"></td>
+	</tr>
+	<tr>
+		<td colspan = "2"><input type = "button" value = "0" style = "width: 40pt" onclick = "number_pressed(0)"></td>
+		<td><input type = "button" value = "." style = "width: 20pt" onclick = "decimal_pressed()"></td>
+	</tr>
+</table>
 
-<p>
-<input type = "button" value = "4" style = "width: 20pt" onclick = "number_pressed(4)">
-<input type = "button" value = "5" style = "width: 20pt" onclick = "number_pressed(5)">
-<input type = "button" value = "6" style = "width: 20pt" onclick = "number_pressed(6)">
-<input type = "button" value = "+" style = "width: 20pt" onclick = "addition()">
-</p>
-
-<p>
-<input type = "button" value = "1" style = "width: 20pt" onclick = "number_pressed(1)">
-<input type = "button" value = "2" style = "width: 20pt" onclick = "number_pressed(2)">
-<input type = "button" value = "3" style = "width: 20pt" onclick = "number_pressed(3)">
-</p>
-
-<p>
-<input type = "button" value = "0" style = "width: 40pt" onclick = "number_pressed(0)">
-<input type = "button" value = "." style = "width: 20pt" onclick = "decimal_pressed()">
-<input type = "button" value = "=" style = "width: 20pt" onclick = "calculate()">
-</p>
-
-<p><a href = "/small_web_projects/index.html">Back to the index</a></p>
+<span><a href = "/small_web_projects/index.html">Back to the index</a></span>
 
 <script src = "/small_web_projects/calculator.js"></script>
 
