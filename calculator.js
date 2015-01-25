@@ -11,9 +11,38 @@ out.innerHTML = "0";
 
 var buttons = document.getElementById("buttons");
 buttons.addEventListener("click",
-	function (evt)
+	function (event)
 	{
-		console.log(evt.target.value);
+		evt = event.target.value;
+		switch (evt)
+		{
+			case "C":
+				clear_total();
+				break;
+			case ".":
+				decimal_pressed();
+				break;
+			case "/":
+				division();
+				break;
+			case "*":
+				multiplication();
+				break;
+			case "-":
+				subtraction();
+				break;
+			case "+":
+				addition();
+				break;
+			case "=":
+				calculate();
+				break;
+			case ((parseInt(evt) >= parseInt(0)) && (parseInt(evt) <= parseInt(9))):
+				console.log("sending number press: " + evt);
+				number_pressed(evt);
+				break;
+		}
+		console.log("button pressed: " + evt);
 	},
 	false);
 
@@ -44,6 +73,7 @@ function clear_total()
 function number_pressed(incoming)
 {
 	// respond to number buttons
+	console.log("number pressed: " + Number(incoming));
 	if (past_decimal == 0)
 	{
 		// this adjusts the current number to account for ordinary numeric input
