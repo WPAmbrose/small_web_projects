@@ -37,12 +37,37 @@ buttons.addEventListener("click",
 			case "=":
 				calculate();
 				break;
-			case ((parseInt(evt) >= parseInt(0)) && (parseInt(evt) <= parseInt(9))):
-				console.log("sending number press: " + evt);
-				number_pressed(evt);
+			case "0":
+				number_pressed("0");
+				break;
+			case "1":
+				number_pressed("1");
+				break;
+			case "2":
+				number_pressed("2");
+				break;
+			case "3":
+				number_pressed("3");
+				break;
+			case "4":
+				number_pressed("4");
+				break;
+			case "5":
+				number_pressed("5");
+				break;
+			case "6":
+				number_pressed("6");
+				break;
+			case "7":
+				number_pressed("7");
+				break;
+			case "8":
+				number_pressed("8");
+				break;
+			case "9":
+				number_pressed("9");
 				break;
 		}
-		console.log("button pressed: " + evt);
 	},
 	false);
 
@@ -73,7 +98,7 @@ function clear_total()
 function number_pressed(incoming)
 {
 	// respond to number buttons
-	console.log("number pressed: " + Number(incoming));
+
 	if (past_decimal == 0)
 	{
 		// this adjusts the current number to account for ordinary numeric input
