@@ -9,8 +9,13 @@ var calc_status = document.getElementById("status");
 calc_status.innerHTML = "Click to enter numbers and operators";
 out.innerHTML = "0";
 
-var buttons = document.getElementById("buttons");
-buttons.addEventListener("click",
+var button_table= document.getElementById("button_holder");
+var function_buttons = button_table.getElementsByClassName("function_button");
+var number_buttons = button_table.getElementsByClassName("number_button");
+
+for (to_add = 0; to_add < function_buttons.length; to_add++)
+{
+	function_buttons[to_add].addEventListener("click",
 	function (event)
 	{
 		evt = event.target.value;
@@ -37,44 +42,30 @@ buttons.addEventListener("click",
 			case "=":
 				calculate();
 				break;
-			case "0":
-				number_pressed("0");
-				break;
-			case "1":
-				number_pressed("1");
-				break;
-			case "2":
-				number_pressed("2");
-				break;
-			case "3":
-				number_pressed("3");
-				break;
-			case "4":
-				number_pressed("4");
-				break;
-			case "5":
-				number_pressed("5");
-				break;
-			case "6":
-				number_pressed("6");
-				break;
-			case "7":
-				number_pressed("7");
-				break;
-			case "8":
-				number_pressed("8");
-				break;
-			case "9":
-				number_pressed("9");
-				break;
 		}
 	},
 	false);
+}
+
+for (to_add = 0; to_add < number_buttons.length; to_add++)
+{
+	number_buttons[to_add].addEventListener("click",
+	function (event) { number_pressed(event.target.value); },
+	false);
+}
 
 function update_output(out_number)
 {
 	// update the currently displayed number
-	out.innerHTML = out_number;
+	console.log(out_number.toFixed(0));
+	if ((past_decimal > 0) && (out_number === out_number.toFixed(0)))
+	{
+		out.innerHTML = out.innerHTML = out_number.toFixed;
+	}
+	else
+	{
+		out.innerHTML = out_number;
+	}
 } // update_output
 
 function update_status(stat)
@@ -99,7 +90,7 @@ function number_pressed(incoming)
 {
 	// respond to number buttons
 
-	if (past_decimal == 0)
+	if (past_decimal === 0)
 	{
 		// this adjusts the current number to account for ordinary numeric input
 		current = current * 10 + Number(incoming);
@@ -118,7 +109,7 @@ function number_pressed(incoming)
 function decimal_pressed()
 {
 	// respond to the decimal point button
-	if (past_decimal == 0)
+	if (past_decimal === 0)
 	{
 		past_decimal = 1;
 	}
