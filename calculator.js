@@ -13,14 +13,11 @@ var button_table= document.getElementById("button_holder");
 var function_buttons = button_table.getElementsByClassName("function_button");
 var number_buttons = button_table.getElementsByClassName("number_button");
 
-for (to_add = 0; to_add < function_buttons.length; to_add++)
-{
+for (to_add = 0; to_add < function_buttons.length; to_add++) {
 	function_buttons[to_add].addEventListener("click",
-	function (event)
-	{
+	function (event) {
 		evt = event.target.value;
-		switch (evt)
-		{
+		switch (evt) {
 			case "C":
 				clear_total();
 				break;
@@ -47,35 +44,29 @@ for (to_add = 0; to_add < function_buttons.length; to_add++)
 	false);
 }
 
-for (to_add = 0; to_add < number_buttons.length; to_add++)
-{
+for (to_add = 0; to_add < number_buttons.length; to_add++) {
 	number_buttons[to_add].addEventListener("click",
 	function (event) { number_pressed(event.target.value); },
 	false);
 }
 
-function update_output(out_number)
-{
+function update_output(out_number) {
 	// update the currently displayed number
 	console.log(out_number.toFixed(0));
-	if ((past_decimal > 0) && (out_number === out_number.toFixed(0)))
-	{
+	if ((past_decimal > 0) && (out_number === out_number.toFixed(0))) {
 		out.innerHTML = out.innerHTML = out_number.toFixed;
 	}
-	else
-	{
+	else {
 		out.innerHTML = out_number;
 	}
 } // update_output
 
-function update_status(stat)
-{
+function update_status(stat) {
 	// update the status
 	calc_status.innerHTML = stat;
 } // update_status
 
-function clear_total()
-{
+function clear_total() {
 	// respond to the C button
 	update_status("Clearing...");
 	rt = null;
@@ -86,17 +77,14 @@ function clear_total()
 	update_output(0);
 } // clear_total
 
-function number_pressed(incoming)
-{
+function number_pressed(incoming) {
 	// respond to number buttons
 
-	if (past_decimal === 0)
-	{
+	if (past_decimal === 0) {
 		// this adjusts the current number to account for ordinary numeric input
 		current = current * 10 + Number(incoming);
 	}
-	else
-	{
+	else {
 		// this adjusts the current number to account for numeric input after the decimal point has been entered
 		// past_decimal (effectively) keeps track of how many times a number has been added after the decimal
 		// raising 1/10 to the power of the position past the decimal produces 0.1, 0.01, 0.001, etc.
@@ -106,65 +94,61 @@ function number_pressed(incoming)
 	update_output(current);
 } // number_pressed
 
-function decimal_pressed()
-{
+function decimal_pressed() {
 	// respond to the decimal point button
-	if (past_decimal === 0)
-	{
+	if (past_decimal === 0)	{
 		past_decimal = 1;
 	}
 } // decimal_pressed
 
-function division()
-{
+function division() {
 	// respond to the / button
 	update_status("the / button was pressed");
  	calculate();
 	in_operation = "divide";
 } // division
 
-function multiplication()
-{
+function multiplication() {
 	// respond to the * button
 	update_status("the * button was pressed");
 	calculate();
 	in_operation = "multiply";
 } // multiplication
 
-function subtraction()
-{
+function subtraction() {
 	// respond to the - button
 	update_status("the - button was pressed");
-calculate();
+	calculate();
 	in_operation = "subtract";
 } // subtraction
 
-function addition()
-{
+function addition() {
 	// respond to the + button
 	update_status("the + button was pressed");
  	calculate();
 	in_operation = "add";
 } // addition
 
-function calculate()
-{
+function calculate() {
 	// this is called whenever an operator button is pressed,
 	// and is the only thing called when the = button is pressed
-	if (rt === null)
-	{
+	if (rt === null) {
 		rt = current;
 	}
-	else
-	{
-		if (in_operation == "add")
-			{ rt = rt + current; }
-		else if (in_operation == "subtract")
-			{ rt = rt - current; }
-		else if (in_operation == "multiply")
-			{ rt = rt * current; }
-		else if (in_operation == "divide")
-			{ rt = rt / current; }
+	else {
+		switch (in_operation) {
+			case ("add"):
+			rt = rt + current;
+			break;
+		case ("subtract")
+			rt = rt - current;
+			break;
+		case ("multiply")
+			rt = rt * current;
+			break;
+		case ("divide")
+			rt = rt / current;
+			break;
 	}
 	current = 0;
 	update_output(rt);
