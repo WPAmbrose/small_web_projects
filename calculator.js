@@ -95,28 +95,24 @@ function decimal_pressed() {
 
 function division() {
 	// respond to the / button
-	update_status("the / button was pressed");
  	calculate();
 	in_operation = "divide";
 } // division
 
 function multiplication() {
 	// respond to the * button
-	update_status("the * button was pressed");
 	calculate();
 	in_operation = "multiply";
 } // multiplication
 
 function subtraction() {
 	// respond to the - button
-	update_status("the - button was pressed");
 	calculate();
 	in_operation = "subtract";
 } // subtraction
 
 function addition() {
 	// respond to the + button
-	update_status("the + button was pressed");
  	calculate();
 	in_operation = "add";
 } // addition
