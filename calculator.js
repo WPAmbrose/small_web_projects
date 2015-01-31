@@ -4,10 +4,8 @@ var past_decimal = 0;
 var in_operation = null;
 
 var out = document.getElementById("out");
-var calc_status = document.getElementById("status");
 
-calc_status.innerHTML = "Click to enter numbers and operators";
-out.innerHTML = "0";
+out.innerHTML = "Click to enter numbers and operators";
 
 var button_table= document.getElementById("button_holder");
 var function_buttons = button_table.getElementsByClassName("function_button");
@@ -61,20 +59,14 @@ function update_output(out_number) {
 	}
 } // update_output
 
-function update_status(stat) {
-	// update the status
-	calc_status.innerHTML = stat;
-} // update_status
-
 function clear_total() {
 	// respond to the C button
-	update_status("Clearing...");
+	update_output("Clearing...");
 	rt = null;
 	current = 0;
 	past_decimal = 0;
 	in_operation = null;
-	update_status("Click to enter numbers and operators");
-	update_output(0);
+	update_output("0");
 } // clear_total
 
 function number_pressed(incoming) {
