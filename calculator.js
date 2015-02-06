@@ -126,18 +126,20 @@ function calculate() {
 	else {
 		switch (in_operation) {
 			case ("add"):
-			rt = rt + current;
-			break;
-		case ("subtract")
-			rt = rt - current;
-			break;
-		case ("multiply")
-			rt = rt * current;
-			break;
-		case ("divide")
-			rt = rt / current;
-			break;
+				rt = rt + current;
+				break;
+			case ("subtract"):
+				rt = rt - current;
+				break;
+			case ("multiply"):
+				rt = rt * current;
+				break;
+			case ("divide"):
+				rt = rt / current;
+				break;
+		}
 	}
+	
 	current = 0;
 	update_output(rt);
 	past_decimal = 0;
