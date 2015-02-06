@@ -50,13 +50,7 @@ for (to_add = 0; to_add < number_buttons.length; to_add++) {
 
 function update_output(out_number) {
 	// update the currently displayed number
-	console.log(out_number.toFixed(0));
-	if ((past_decimal > 0) && (out_number === out_number.toFixed(0))) {
-		out.innerHTML = out.innerHTML = out_number.toFixed;
-	}
-	else {
-		out.innerHTML = out_number;
-	}
+	out.innerHTML = out_number;
 } // update_output
 
 function clear_total() {
@@ -141,6 +135,6 @@ function calculate() {
 	}
 	
 	current = 0;
-	update_output(rt);
 	past_decimal = 0;
+	update_output(rt);
 } // calculate
