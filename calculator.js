@@ -1,16 +1,26 @@
+// set up status variables used by multiple functions
 var rt = null;
 var current = 0;
+var current_stale = false;
 var past_decimal = 0;
 var in_operation = null;
 
 var out = document.getElementById("out");
-
 out.innerHTML = "Click to enter numbers and operators";
 
+// get relevant page elements
 var button_table= document.getElementById("button_holder");
 var function_buttons = button_table.getElementsByClassName("function_button");
 var number_buttons = button_table.getElementsByClassName("number_button");
 
+// add event listeners for digit buttons
+for (to_add = 0; to_add < number_buttons.length; to_add++) {
+	number_buttons[to_add].addEventListener("click",
+	function (event) { digit_pressed(event.target.value); },
+	false);
+}
+
+// add event listeners for operator buttons and other special buttons
 for (to_add = 0; to_add < function_buttons.length; to_add++) {
 	function_buttons[to_add].addEventListener("click",
 	function (event) {
@@ -18,9 +28,6 @@ for (to_add = 0; to_add < function_buttons.length; to_add++) {
 		switch (evt) {
 			case "C":
 				clear_total();
-				break;
-			case ".":
-				decimal_pressed();
 				break;
 			case "/":
 				division();
@@ -34,6 +41,9 @@ for (to_add = 0; to_add < function_buttons.length; to_add++) {
 			case "+":
 				addition();
 				break;
+			case ".":
+				decimal_pressed();
+				break;
 			case "=":
 				calculate();
 				break;
@@ -42,21 +52,19 @@ for (to_add = 0; to_add < function_buttons.length; to_add++) {
 	false);
 }
 
-for (to_add = 0; to_add < number_buttons.length; to_add++) {
-	number_buttons[to_add].addEventListener("click",
-	function (event) { number_pressed(event.target.value); },
-	false);
-}
-
 function update_output(out_number) {
 	// update the currently displayed number
+	
 	var out_string = out_number;
-	if (past_decimal > 0 && current == Math.floor(current)) {
+		
+	// This detects and handles the decimal point and any zeroes after it.
+	if (past_decimal > 0 && current === Math.floor(current)) {
 		out_string = out_string + ".";
 		for (decm = 0; decm < past_decimal - 1; decm++) {
 			out_string = out_string + "0";
 		}
 	}
+	
 	out.innerHTML = out_string;
 } // update_output
 
@@ -70,8 +78,14 @@ function clear_total() {
 	update_output("0");
 } // clear_total
 
-function number_pressed(incoming) {
-	// respond to number buttons
+function digit_pressed(incoming) {
+	// respond to digit buttons
+	
+	// check if current number is stale and reset it if it is
+	if (current_stale) {
+		current = 0;
+		current_stale = false;
+	}
 
 	if (past_decimal === 0) {
 		// This adjusts the current number to account for ordinary numeric input.
@@ -85,7 +99,7 @@ function number_pressed(incoming) {
 		past_decimal++;
 	}
 	update_output(current);
-} // number_pressed
+} // digit_pressed
 
 function decimal_pressed() {
 	// respond to the decimal point button
@@ -97,32 +111,33 @@ function decimal_pressed() {
 
 function division() {
 	// respond to the / button
- 	calculate();
+ 	if (current_stale == false) calculate();
 	in_operation = "divide";
 } // division
 
 function multiplication() {
 	// respond to the * button
-	calculate();
+	if (current_stale == false) calculate();
 	in_operation = "multiply";
 } // multiplication
 
 function subtraction() {
 	// respond to the - button
-	calculate();
+	if (current_stale == false) calculate();
 	in_operation = "subtract";
 } // subtraction
 
 function addition() {
 	// respond to the + button
- 	calculate();
+ 	if (current_stale == false) calculate();
 	in_operation = "add";
 } // addition
 
 function calculate() {
 	// This is called whenever an operator button is pressed, and is the only thing called when the = button is pressed.
+	// It does all of the actual user-relevant calculation.
 	
-	var do_calc = true;
+	// var do_calc = true;
 	
 	if (rt === null) {
 		rt = current;
@@ -141,18 +156,22 @@ function calculate() {
 			case ("divide"):
 				rt = rt / current;
 				break;
+			/*
 			default:
 				// Operations have happened since the last clear, but no operation is in progress,
 				// so don't do calculations, to prevent erratic behavior.
 				do_calc = false;
 				break;
+			*/
 		}
 	}
-	
+	/*
 	if (do_calc) {
-		current = 0;
-		past_decimal = 0;
+		current = null;
 		in_operation = null;
+		*/
+		current_stale = true;
+		past_decimal = 0;
 		update_output(rt);
-	}
+	//}
 } // calculate
