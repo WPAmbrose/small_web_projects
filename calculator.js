@@ -50,7 +50,14 @@ for (to_add = 0; to_add < number_buttons.length; to_add++) {
 
 function update_output(out_number) {
 	// update the currently displayed number
-	out.innerHTML = out_number;
+	var out_string = out_number;
+	if (past_decimal > 0 && current == Math.floor(current)) {
+		out_string = out_string + ".";
+		for (decm = 0; decm < past_decimal - 1; decm++) {
+			out_string = out_string + "0";
+		}
+	}
+	out.innerHTML = out_string;
 } // update_output
 
 function clear_total() {
@@ -67,13 +74,13 @@ function number_pressed(incoming) {
 	// respond to number buttons
 
 	if (past_decimal === 0) {
-		// this adjusts the current number to account for ordinary numeric input
+		// This adjusts the current number to account for ordinary numeric input.
 		current = current * 10 + Number(incoming);
 	}
 	else {
-		// this adjusts the current number to account for numeric input after the decimal point has been entered
-		// past_decimal (effectively) keeps track of how many times a number has been added after the decimal
-		// raising 1/10 to the power of the position past the decimal produces 0.1, 0.01, 0.001, etc.
+		// This adjusts the current number to account for numeric input after the decimal point has been entered.
+		// The variable past_decimal (effectively) keeps track of how many times a number has been added after the decimal.
+		// Raising 1/10 to the power of the position past the decimal produces 0.1, 0.01, 0.001, etc.
 		current = current + (Math.pow((1 / 10), past_decimal) * Number(incoming));
 		past_decimal++;
 	}
@@ -85,6 +92,7 @@ function decimal_pressed() {
 	if (past_decimal === 0)	{
 		past_decimal = 1;
 	}
+	update_output(current);
 } // decimal_pressed
 
 function division() {
@@ -112,8 +120,10 @@ function addition() {
 } // addition
 
 function calculate() {
-	// this is called whenever an operator button is pressed,
-	// and is the only thing called when the = button is pressed
+	// This is called whenever an operator button is pressed, and is the only thing called when the = button is pressed.
+	
+	var do_calc = true;
+	
 	if (rt === null) {
 		rt = current;
 	}
@@ -131,10 +141,18 @@ function calculate() {
 			case ("divide"):
 				rt = rt / current;
 				break;
+			default:
+				// Operations have happened since the last clear, but no operation is in progress,
+				// so don't do calculations, to prevent erratic behavior.
+				do_calc = false;
+				break;
 		}
 	}
 	
-	current = 0;
-	past_decimal = 0;
-	update_output(rt);
+	if (do_calc) {
+		current = 0;
+		past_decimal = 0;
+		in_operation = null;
+		update_output(rt);
+	}
 } // calculate
