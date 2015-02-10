@@ -27,7 +27,7 @@ for (to_add = 0; to_add < function_buttons.length; to_add++) {
 		evt = event.target.value;
 		switch (evt) {
 			case "C":
-				clear_total();
+				clear_pressed();
 				break;
 			case "/":
 				division();
@@ -65,35 +65,49 @@ function update_output(out_number) {
 		}
 	}
 	
+	// This detects and handles numbers and operations out of the scope of what the calculator can handle,
+	// such as numbers too big to fit in a standard variable and division by zero.
+	if (isFinite(out_number) === false || isNaN(out_number) === true) {
+		clear_all();
+		out_string = "E";
+	}
+	
 	out.innerHTML = out_string;
 } // update_output
 
-function clear_total() {
-	// respond to the C button
+function clear_pressed() {
+	// responds to the C button
 	update_output("Clearing...");
+	clear_all();
+	update_output("0");
+} // clear_pressed
+
+function clear_all() {
+	// clears everything out
 	rt = null;
 	current = 0;
+	current_stale = false;
 	past_decimal = 0;
 	in_operation = null;
-	update_output("0");
-} // clear_total
+} // clear_all
 
 function digit_pressed(incoming) {
 	// respond to digit buttons
 	
-	// check if current number is stale and reset it if it is
+	// Check if current number is stale, and reset it if it is.
+	// This allows the last number entered to be kept around for repeated use of = until the user enters another number.
 	if (current_stale) {
 		current = 0;
 		current_stale = false;
 	}
 
+	// This adjusts the current number to account for ordinary numeric input.
 	if (past_decimal === 0) {
-		// This adjusts the current number to account for ordinary numeric input.
 		current = current * 10 + Number(incoming);
 	}
 	else {
 		// This adjusts the current number to account for numeric input after the decimal point has been entered.
-		// The variable past_decimal (effectively) keeps track of how many times a number has been added after the decimal.
+		// The variable past_decimal keeps track of how many times a number has been added after the decimal.
 		// Raising 1/10 to the power of the position past the decimal produces 0.1, 0.01, 0.001, etc.
 		current = current + (Math.pow((1 / 10), past_decimal) * Number(incoming));
 		past_decimal++;
@@ -111,33 +125,31 @@ function decimal_pressed() {
 
 function division() {
 	// respond to the / button
- 	if (current_stale == false) calculate();
+ 	if (current_stale === false) calculate();
 	in_operation = "divide";
 } // division
 
 function multiplication() {
 	// respond to the * button
-	if (current_stale == false) calculate();
+	if (current_stale === false) calculate();
 	in_operation = "multiply";
 } // multiplication
 
 function subtraction() {
 	// respond to the - button
-	if (current_stale == false) calculate();
+	if (current_stale === false) calculate();
 	in_operation = "subtract";
 } // subtraction
 
 function addition() {
 	// respond to the + button
- 	if (current_stale == false) calculate();
+ 	if (current_stale === false) calculate();
 	in_operation = "add";
 } // addition
 
 function calculate() {
 	// This is called whenever an operator button is pressed, and is the only thing called when the = button is pressed.
 	// It does all of the actual user-relevant calculation.
-	
-	// var do_calc = true;
 	
 	if (rt === null) {
 		rt = current;
@@ -156,22 +168,13 @@ function calculate() {
 			case ("divide"):
 				rt = rt / current;
 				break;
-			/*
-			default:
-				// Operations have happened since the last clear, but no operation is in progress,
-				// so don't do calculations, to prevent erratic behavior.
-				do_calc = false;
-				break;
-			*/
 		}
 	}
-	/*
-	if (do_calc) {
-		current = null;
-		in_operation = null;
-		*/
+	
+	// check if something other than an ordinary number was calculated last
+	if (out.innerHTML !== "E") {
 		current_stale = true;
 		past_decimal = 0;
 		update_output(rt);
-	//}
+	}
 } // calculate
