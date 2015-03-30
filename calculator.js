@@ -107,9 +107,9 @@ function digit_pressed(incoming) {
 	}
 	else {
 		// This adjusts the current number to account for numeric input after the decimal point has been entered.
-		// The variable past_decimal keeps track of how many times a number has been added after the decimal.
-		// Raising 1/10 to the power of the position past the decimal produces 0.1, 0.01, 0.001, etc.
-		current = current + (Math.pow((1 / 10), past_decimal) * Number(incoming));
+		// The variable past_decimal keeps track of how many times a digit has been added after the decimal.
+		// Raising 0.1 to the power of the position past the decimal produces 0.1, 0.01, 0.001, etc.
+		current = current + (Math.pow((0.1), past_decimal) * Number(incoming));
 		past_decimal++;
 	}
 	update_output(current);
